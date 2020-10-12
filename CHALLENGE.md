@@ -8,7 +8,9 @@ Oh, and don’t worry, we won’t really be asking you to write banking software
 We’re going to be keeping track of financial transactions between different parties — people and organisations. In our system, these parties are identified by a simple string such as "john" or "supermarket", and you will be provided with a ledger of transactions that looks like this:
 
 2015-01-16,john,mary,125.00
+
 2015-01-17,john,supermarket,20.00
+
 2015-01-17,mary,insurance,100.00
 
 Note: You will need to generate the necessary data to demonstrate the capabilities of your program.
