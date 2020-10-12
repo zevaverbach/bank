@@ -57,5 +57,6 @@ def test_get_balance_random(random_data):
     ledger.ingest(random_data)
     for entity_name, transactions in ledger.entities.items():
         assert ledger.get_balance(entity_name) == sum(t[1] for t in transactions)
-        assert ledger.get_balance(entity_name, dt.date(2017, 3, 5)) == sum(amount for date, amount in
-                transactions if date <= dt.date(2017, 3, 5))
+        assert ledger.get_balance(entity_name, dt.date(2017, 3, 5)) == sum(
+            amount for date, amount in transactions if date <= dt.date(2017, 3, 5)
+        )
