@@ -36,12 +36,14 @@ def ingest(transaction_strings: List[str]):
         transactions.append(transaction)
         entity_names.update((source, target))
 
-    global entities
+    global entities # Dict[str, List[Tuple[dt.date, Decimal]]]
+
     entities = {entity_name: [] for entity_name in entity_names}
 
     for t in sorted(transactions, key=lambda t: t.date):
         entities[t.source].append((t.date, -t.amount))
         entities[t.target].append((t.date, t.amount))
+
 
 
 def _get_transactions():
