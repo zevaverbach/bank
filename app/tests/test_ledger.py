@@ -2,14 +2,14 @@ import datetime as dt
 from decimal import Decimal
 from random import choice
 
-from pytest import fixture
+import pytest
 
 from app import ledger
 
 ENTITIES = ("mary", "john", "insurance", "supermarket", "lottery", "joe", "gas station")
 
 
-@fixture
+@pytest.fixture
 def ledger_data():
     return (
         "2015-01-16,john,mary,125.00",
@@ -18,7 +18,23 @@ def ledger_data():
     )
 
 
-@fixture
+@pytest.fixture
+def invalid_data_sets():
+    return (
+        (
+            "201-01-16,john,mary,125.00",
+            "2015-01-17,john,supermarket,20.00",
+            "2015-01-17,mary,insurance,100.00",
+        ),
+        (
+            "2015-01-16,john,,125.00",
+            "2015-01-17,john,supermarket,20.00",
+            "2015-01-17,mary,insurance,100.00",
+        ),
+    )
+
+
+@pytest.fixture
 def random_data():
     N = 10_000
     data = []
@@ -31,9 +47,15 @@ def random_data():
     return data
 
 
-@fixture
+@pytest.fixture
 def ingest(ledger_data):
     ledger.ingest(ledger_data)
+
+
+def test_invalid(invalid_data_sets):
+    for invalid_data in invalid_data_sets:
+        with pytest.raises(ledger.ValidationError):
+            ledger.ingest(invalid_data)
 
 
 def test_ledger_ingest(ingest):
