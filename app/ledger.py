@@ -72,7 +72,7 @@ def parse_and_validate_transaction_string(
             f"Please provide a date, source, target and amount: {transaction_string}"
         )
 
-    if any(not arg for arg in (date_string, source, target, amount_string)):
+    if not all((date_string, source, target, amount_string)):
         raise ValidationError(f"All items must have a value: {transaction_string}")
 
     if not re.match(DATE_REGEX, date_string):
