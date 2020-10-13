@@ -42,7 +42,7 @@ def random_data():
         date = f"{choice(range(2014, 2018))}-{choice(range(1, 13)):02}-{choice(range(1, 29)):02}"
         source = choice(ENTITIES)
         target = choice([i for i in ENTITIES if i != source])
-        amount = Decimal(choice(range(5, 250)))
+        amount = Decimal(choice(range(-500, 250)))
         data.append(f"{date},{source},{target},{amount}")
     return data
 
